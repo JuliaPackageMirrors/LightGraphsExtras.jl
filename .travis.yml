@@ -4,13 +4,14 @@ os:
   - linux
 #  - osx
 julia:
-  - release
-  # - nightly
+  - 0.5
+  - nightly
 notifications:
   email: false
 # uncomment the following lines to override the default test script
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+  - julia -e 'Pkg.add("LightGraphs"); Pkg.checkout("LightGraphs")'
   - julia -e 'Pkg.clone(pwd()); Pkg.build("LightGraphsExtras"); Pkg.test("LightGraphsExtras"; coverage=true)'
 
 # cache:
